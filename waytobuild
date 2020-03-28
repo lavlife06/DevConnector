@@ -1,0 +1,10 @@
+1) simple get request by app.get and app.listen
+2) with use of config to get started with database connect using mongoose.connect
+   and added in server.js
+3) Get started with routes for api/users/profiles etc... with router= expre.Router() 
+   and with router.get() and add router methods to server.js like- 
+   app.use('/api/auth', require('./routes/api/auth'));
+4) Created a model of User and stored data in user wiht making Schema({})
+5) Added bodyParser for getting back body.req to use post methods
+6) Added express validator so it handle error and message
+7) Registration users, 
