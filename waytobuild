@@ -6,5 +6,8 @@
    app.use('/api/auth', require('./routes/api/auth'));
 4) Created a model of User and stored data in user wiht making Schema({})
 5) Added bodyParser for getting back body.req to use post methods
-6) Added express validator so it handle error and message
-7) Registration users, 
+6) Added express validator so it handle whether the user is posting correct info to database
+7) Registration of users by checking for existence of user, then get users gravator,
+   encrypt users password.
+8) made jsonwebtoken
+9) Created middle ware to verify to verify token created by jsonwebtoken and send users info back
