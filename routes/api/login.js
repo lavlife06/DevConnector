@@ -1,65 +1,61 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
+const verify = require('../../Middleware/verify_mv');
 const User = require('../../models/User');
-const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const { check, validationResult } = require('express-validator');
 
-// @route POST api/users
+// @route GET api/login
 // desc   test route
 // access Public
 
+router.get('/', verify, async (req, res) => {
+  try {
+    const userinfo = await User.findById(req.user.id).select('-password');
+    res.json(userinfo);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route POST api/login
+// desc   Aauthenticate token and get token
+// access Public
 router.post(
   '/',
   [
-    check('name', 'Name is required')
-      .not()
-      .isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
-    check('password', 'PLease enter password with >6 letter').isLength({
-      min: 6
-    })
+    check('password', 'Password is required').exists()
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    let { name, email, password } = req.body;
+    let { email, password } = req.body;
     try {
       // let user = await User.findOne({ email: email })
       //                  ||
       let user = await User.findOne({ email });
 
       // See if user exits
-      if (user) {
+      if (!user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'User already exits' }] });
+          .json({ errors: [{ msg: 'Invalid credentials' }] });
       }
 
-      // Get users gravator
-      let avatar = gravatar.url(email, {
-        s: '200', // size
-        r: 'pg', // makes sure that no naked images comes
-        d: 'mm' // if user doesnt have a gravator then mm will handle
-      });
+      const isMatch = await bcrypt.compare(password, user.password);
+      // user.password is from database
 
-      // Creating user instance
-      user = new User({
-        name,
-        email,
-        password,
-        avatar
-      });
-
-      // Encrypt password
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-
-      await user.save(); // In atlas data will be saved
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Invalid credentials' }] });
+      }
 
       // Return jsonwebtokens
       let payload = {
@@ -74,7 +70,7 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.header('x-auth-token', token).json({ token });
         }
       );
     } catch (err) {
