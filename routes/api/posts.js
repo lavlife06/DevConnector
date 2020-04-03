@@ -230,8 +230,8 @@ router.delete('/comment/:id/:comment_id', verify, async (req, res) => {
     await post.save();
 
     return res.json(post.comments);
-  } catch (err) {
-    console.error(err.message);
+  } catch (error) {
+    console.error(error.message);
     return res.status(500).send('Server Error');
   }
 });
