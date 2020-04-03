@@ -1,7 +1,7 @@
 const connectDB = require('./config/db');
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 // Connect database
 connectDB();
@@ -20,5 +20,5 @@ app.use('/api/signup', require('./routes/api/signup'));
 app.use('/api/posts', require('./routes/api/posts'));
 
 app.listen(PORT, () => {
-  console.log('Its running dont worry');
+  console.log(`Its running on ${PORT} dont worry`);
 });
