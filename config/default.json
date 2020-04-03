@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://lavsenghani:umiyaglass@cluster0-ltrds.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "mywebtokensecret"
+  "jwtSecret": "mywebtokensecret",
+  "githubClientId": "d20b59a667ed4b931be6",
+  "githubSecret": "4a293f41b9f53bbbec836a53fe3d0c88f78d97c6"
 }
