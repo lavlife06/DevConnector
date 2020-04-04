@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { setAlert } from '../../reduxstuff/actions/alert';
+import { register } from '../../reduxstuff/actions/auth';
+import { connect } from 'react-redux';
 // import axios from 'axios';
 
-const Register = () => {
+const Register = ({ setAlert, register }) => {
   const [formdata, setFormData] = useState({
     name: '',
     email: '',
@@ -21,30 +24,30 @@ const Register = () => {
   //   if (password !== password2) {
   //     console.log('Passwords do not match');
   //   } else {
-  //     try {
-  //       const config = {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       };
+  // try {
+  //   const config = {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   };
 
-  //       const body = JSON.stringify({ name, email, password });
+  //   const body = JSON.stringify({ name, email, password });
 
-  //       const res = await axios.post('/api/signup', body, config);
+  //   const res = await axios.post('/api/signup', body, config);
 
-  //       console.log(res.data);
-  //     } catch (error) {
-  //       console.error(error.response.data);
-  //     }
+  //   console.log(res.data);
+  // } catch (error) {
+  //   console.error(error.response.data);
+  // }
   //   }
   // };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('Passwords do not match');
+      setAlert('Passwords do not match', 'danger');
     } else {
-      console.log('SUCCESS');
+      register({ name, email, password });
     }
   };
 
@@ -76,6 +79,7 @@ const Register = () => {
             value={email}
             onChange={(e) => onChangeHandler(e)}
             name="email"
+            required
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
@@ -90,6 +94,7 @@ const Register = () => {
             minLength="6"
             value={password}
             onChange={(e) => onChangeHandler(e)}
+            required
           />
         </div>
         <div className="form-group">
@@ -100,6 +105,7 @@ const Register = () => {
             minLength="6"
             value={password2}
             onChange={(e) => onChangeHandler(e)}
+            required
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
@@ -111,4 +117,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default connect(null, { setAlert, register })(Register);
