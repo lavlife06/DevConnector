@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-// @route POST api/users
+// @route POST api/signup
 // desc   test route
 // access Public
 
@@ -15,13 +15,11 @@ router.post(
   '/',
   // We want the info of user accordinf to the given below condition
   [
-    check('name', 'Name is required')
-      .not()
-      .isEmpty(),
+    check('name', 'Name is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'PLease enter password with >6 letter').isLength({
-      min: 6
-    })
+      min: 6,
+    }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -45,7 +43,7 @@ router.post(
       let avatar = gravatar.url(email, {
         s: '200', // size
         r: 'pg', // makes sure that no naked images comes
-        d: 'mm' // if user doesnt have a gravator then mm will handle
+        d: 'mm', // if user doesnt have a gravator then mm will handle
       });
 
       // Creating user instance
@@ -53,7 +51,7 @@ router.post(
         name,
         email,
         password,
-        avatar
+        avatar,
       });
 
       // Encrypt password
@@ -65,8 +63,8 @@ router.post(
       // Return jsonwebtokens
       let payload = {
         user: {
-          id: user._id
-        }
+          id: user._id,
+        },
       };
 
       jwt.sign(
