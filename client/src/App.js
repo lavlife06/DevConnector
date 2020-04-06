@@ -16,6 +16,7 @@ const App = () => {
   useEffect(() => {
     setAuthToken(localStorage.token);
     store.dispatch(loadUser());
+    console.log('On App');
   }, []);
 
   return (

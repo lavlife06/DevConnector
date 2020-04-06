@@ -9,10 +9,15 @@ import {
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
-// import setAuthToken from '../utils/setAuthToken';
+import setAuthToken from '../utils/setAuthToken';
 
 //  Load User
 export const loadUser = () => async (dispatch) => {
+  // set header
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
   try {
     const res = await axios.get('http://127.0.0.1:5000/api/login');
 
@@ -37,6 +42,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   };
 
   const body = JSON.stringify({ name, email, password });
+
   try {
     const res = await axios.post(
       'http://127.0.0.1:5000/api/signup',
@@ -73,6 +79,7 @@ export const login = (email, password) => async (dispatch) => {
   };
 
   const body = JSON.stringify({ email, password });
+
   try {
     const res = await axios.post(
       'http://127.0.0.1:5000/api/login',
@@ -84,6 +91,13 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+
+    // set header
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+      console.log(localStorage.token);
+    }
+
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;

@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "gravatar": "^1.8.0",
+    "http-proxy-middleware": "^1.0.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.6",
     "request": "^2.88.2"
