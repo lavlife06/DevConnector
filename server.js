@@ -1,7 +1,20 @@
 const connectDB = require('./config/db');
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
+const cors = require('cors');
+
+// implementing cors
+// app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, GET, DELETE');
+    return res.status(200).json({});
+  }
+  next();
+});
 
 // Connect database
 connectDB();

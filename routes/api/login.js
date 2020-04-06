@@ -13,8 +13,8 @@ const { check, validationResult } = require('express-validator');
 
 router.get('/', verify, async (req, res) => {
   try {
-    const userinfo = await User.findById(req.user.id).select('-password');
-    res.json(userinfo);
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -28,7 +28,7 @@ router.post(
   '/',
   [
     check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Password is required').exists()
+    check('password', 'Password is required').exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -60,8 +60,8 @@ router.post(
       // Return jsonwebtokens
       let payload = {
         user: {
-          id: user._id
-        }
+          id: user._id,
+        },
       };
 
       jwt.sign(
