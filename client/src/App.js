@@ -12,6 +12,7 @@ import { loadUser } from './reduxstuff/actions/auth';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/routing/PrivateRoute';
 import store from './reduxstuff/store';
+import ProfileForm from './components/profile-forms/ProfileForm';
 
 const App = () => {
   useEffect(() => {
@@ -31,6 +32,12 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute
+              exact
+              path="/create-profile"
+              component={ProfileForm}
+            />
+            <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
           </Switch>
         </section>
       </Fragment>

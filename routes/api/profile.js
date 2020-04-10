@@ -14,7 +14,7 @@ const config = require('config');
 router.get('/me', verify, async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.user.id
+      user: req.user.id,
     }).populate('user', ['name', 'avatar']);
 
     console.log(req.user);
@@ -38,13 +38,9 @@ router.post(
   [
     verify,
     [
-      check('status', 'Status is required')
-        .not()
-        .isEmpty(),
-      check('skills', 'Skills is required')
-        .not()
-        .isEmpty()
-    ]
+      check('status', 'Status is required').not().isEmpty(),
+      check('skills', 'Skills is required').not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -63,7 +59,7 @@ router.post(
       twitter,
       instagram,
       linkedin,
-      facebook
+      facebook,
     } = req.body;
 
     // build profile object
@@ -76,7 +72,7 @@ router.post(
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
-      profileFields.skills = skills.split(',').map(skill => skill.trim());
+      profileFields.skills = skills;
     }
 
     profileFields.social = {};
@@ -87,6 +83,11 @@ router.post(
     if (instagram) profileFields.social.instagram = instagram;
 
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       // Using upsert option (creates new doc if no match is found):
       let profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
@@ -120,7 +121,7 @@ router.get('/', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.params.user_id
+      user: req.params.user_id,
     }).populate('user', ['name', 'avatar']);
 
     if (!profile) return res.status(400).json({ msg: 'Profile not found' });
@@ -165,17 +166,13 @@ router.put(
   [
     verify,
     [
-      check('title', 'Title is required')
-        .not()
-        .isEmpty(),
-      check('company', 'Company is required')
-        .not()
-        .isEmpty(),
+      check('title', 'Title is required').not().isEmpty(),
+      check('company', 'Company is required').not().isEmpty(),
       check('from', 'From date is required and needs to be from the past')
         .not()
-        .isEmpty()
+        .isEmpty(),
       // .custom((value, { req }) => (req.body.to ? value < req.body.to : true))
-    ]
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -190,7 +187,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     } = req.body;
 
     const newExp = {
@@ -200,7 +197,7 @@ router.put(
       from,
       to,
       current,
-      description
+      description,
     };
 
     try {
@@ -227,7 +224,7 @@ router.delete('/experience/:exp_id', verify, async (req, res) => {
     const foundProfile = await Profile.findOne({ user: req.user.id });
 
     foundProfile.experience = foundProfile.experience.filter(
-      exp => exp._id.toString() !== req.params.exp_id
+      (exp) => exp._id.toString() !== req.params.exp_id
     );
 
     await foundProfile.save();
@@ -250,7 +247,7 @@ router.get('/github/:username', (req, res) => {
         'githubClientId'
       )}&client_secret=${config.get('githubSecret')}`,
       method: 'GET',
-      headers: { 'user-agent': 'node.js' }
+      headers: { 'user-agent': 'node.js' },
     };
 
     request(options, (error, response, body) => {
