@@ -6,8 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  // LOGIN_OUT,
-  // ACCOUNT_DELETED
+  ACCOUNT_DELETED,
 } from '../actions/types';
 
 const initialState = {
@@ -56,29 +55,14 @@ export default (state = initialState, action) => {
         loading: false,
         user: null,
       };
-    // case LOGIN_SUCCESS:
-    //   return {
-    //     ...state,
-    //     ...payload,
-    //     isAuthenticated: true,
-    //     loading: false
-    //   };
-    // case ACCOUNT_DELETED:
-    //   return {
-    //     ...state,
-    //     token: null,
-    //     isAuthenticated: false,
-    //     loading: false,
-    //     user: null
-    //   };
-    // case LOGOUT:
-    //   return {
-    //     ...state,
-    //     token: null,
-    //     isAuthenticated: false,
-    //     loading: false,
-    //     user: null
-    //   };
+    case ACCOUNT_DELETED:
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+      };
     default:
       return state;
   }

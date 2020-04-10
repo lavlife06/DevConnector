@@ -13,6 +13,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/routing/PrivateRoute';
 import store from './reduxstuff/store';
 import ProfileForm from './components/profile-forms/ProfileForm';
+import AddExperience from './components/profile-forms/AddExperience';
 
 const App = () => {
   useEffect(() => {
@@ -38,6 +39,11 @@ const App = () => {
               component={ProfileForm}
             />
             <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
+            <PrivateRoute
+              exact
+              path="/add-experience"
+              component={AddExperience}
+            />
           </Switch>
         </section>
       </Fragment>

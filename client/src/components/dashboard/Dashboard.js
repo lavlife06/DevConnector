@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import {
   getCurrentProfile,
-  // deleteAccount,
+  deleteAccount,
 } from '../../reduxstuff/actions/profile';
+import Experience from './Experience';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -39,7 +40,7 @@ const Dashboard = ({
               <i className="fas fa-graduation-cap text-primary" /> Add Education
             </Link>
           </div>
-          {/* <Experience experience={profile.experience} /> */}
+          <Experience experience={profile.experience} />
           {/* <Education education={profile.education} /> */}
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
@@ -61,7 +62,7 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  // deleteAccount: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -72,5 +73,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getCurrentProfile /*,deleteAccount*/,
+  getCurrentProfile,
+  deleteAccount,
 })(Dashboard);
