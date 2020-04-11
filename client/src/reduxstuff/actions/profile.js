@@ -8,8 +8,8 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
-  // GET_REPOS,
-  // NO_REPOS,
+  GET_REPOS,
+  NO_REPOS,
 } from './types';
 
 // Get current users profile
@@ -90,38 +90,42 @@ export const createProfile = (formData, history, edit = false) => async (
   }
 };
 
-// // Get profile by ID
-// export const getProfileById = userId => async dispatch => {
-//   try {
-//     const res = await axios.get(`/api/profile/user/${userId}`);
+// Get profile by ID
+export const getProfileById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `http://127.0.0.1:5000/api/profile/user/${userId}`
+    );
 
-//     dispatch({
-//       type: GET_PROFILE,
-//       payload: res.data
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: PROFILE_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status }
-//     });
-//   }
-// };
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
-// // Get Github repos
-// export const getGithubRepos = username => async dispatch => {
-//   try {
-//     const res = await axios.get(`/api/profile/github/${username}`);
+// Get Github repos
+export const getGithubRepos = (username) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `http://127.0.0.1:5000/api/profile/github/${username}`
+    );
 
-//     dispatch({
-//       type: GET_REPOS,
-//       payload: res.data
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: NO_REPOS
-//     });
-//   }
-// };
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: NO_REPOS,
+    });
+  }
+};
 
 // Add Experience
 export const addExperience = (formData, history) => async (dispatch) => {

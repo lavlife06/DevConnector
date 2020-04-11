@@ -3,6 +3,7 @@ const router = express.Router();
 const verify = require('../../Middleware/verify_mv');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 const { check, validationResult } = require('express-validator');
 const request = require('request');
 const config = require('config');
@@ -143,7 +144,7 @@ router.get('/user/:user_id', async (req, res) => {
 router.delete('/', verify, async (req, res) => {
   try {
     // Remove user posts
-    // await Post.deleteMany({ user: req.user.id });
+    await Post.deleteMany({ user: req.user.id });
 
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
@@ -241,11 +242,8 @@ router.delete('/experience/:exp_id', verify, async (req, res) => {
 router.get('/github/:username', (req, res) => {
   try {
     const options = {
-      uri: `https://api.github.com/users/${
-        req.params.username
-      }/repos?per_page=5&sort=created:asc&client_id=${config.get(
-        'githubClientId'
-      )}&client_secret=${config.get('githubSecret')}`,
+      // uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${config.get('githubClientId')}&client_secret=${config.get('githubSecret')}`,
+      uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`,
       method: 'GET',
       headers: { 'user-agent': 'node.js' },
     };
