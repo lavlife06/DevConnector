@@ -73,7 +73,10 @@ router.post(
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
-      profileFields.skills = skills;
+      let arr = skills.split(',').map((str) => {
+        return str.trim();
+      });
+      profileFields.skills = arr;
     }
 
     profileFields.social = {};

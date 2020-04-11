@@ -11,14 +11,7 @@ const User = require('../../models/User');
 
 router.post(
   '/',
-  [
-    verify,
-    [
-      check('text', 'Text is required')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [verify, [check('text', 'Text is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -32,7 +25,7 @@ router.post(
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id // the user={id:fdmfmldm} which comes with token
+        user: req.user.id, // the user={id:fdmfmldm} which comes with token
       });
 
       const post = await newPost.save();
@@ -114,12 +107,13 @@ router.put('/like/:id', verify, async (req, res) => {
 
     // Check if the post has already been liked
     if (
-      post.likes.filter(like => like.user.toString() === req.user.id).length > 0
+      post.likes.filter((like) => like.user.toString() === req.user.id).length >
+      0
     ) {
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
-    post.likes.push({ user: req.user.id });
+    post.likes.unshift({ user: req.user.id });
 
     await post.save();
 
@@ -139,15 +133,15 @@ router.put('/unlike/:id', verify, async (req, res) => {
 
     // Check if the post has already been liked
     if (
-      post.likes.filter(like => like.user.toString() === req.user.id).length ===
-      0
+      post.likes.filter((like) => like.user.toString() === req.user.id)
+        .length === 0
     ) {
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 
     // Get remove index
     const removeIndex = post.likes
-      .map(like => like.user.toString())
+      .map((like) => like.user.toString())
       .indexOf(req.user.id);
 
     post.likes.splice(removeIndex, 1);
@@ -166,14 +160,7 @@ router.put('/unlike/:id', verify, async (req, res) => {
 // @access   Private
 router.post(
   '/comment/:id',
-  [
-    verify,
-    [
-      check('text', 'Text is required')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [verify, [check('text', 'Text is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -188,10 +175,10 @@ router.post(
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id
+        user: req.user.id,
       };
 
-      post.comments.push(newComment);
+      post.comments.unshift(newComment);
 
       await post.save();
 
@@ -212,7 +199,7 @@ router.delete('/comment/:id/:comment_id', verify, async (req, res) => {
 
     // Pull out comment
     const comment = post.comments.find(
-      comment => comment.id === req.params.comment_id
+      (comment) => comment.id === req.params.comment_id
     );
     // Make sure comment exists
     if (!comment) {
