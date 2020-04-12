@@ -16,6 +16,8 @@ import ProfileForm from './components/profile-forms/ProfileForm';
 import AddExperience from './components/profile-forms/AddExperience';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import Posts from './components/posts/Posts';
+// import Post from './components/post/Post';
 
 const App = () => {
   useEffect(() => {
@@ -48,6 +50,7 @@ const App = () => {
               path="/add-experience"
               component={AddExperience}
             />
+            <PrivateRoute exact path="/posts" component={Posts} />
           </Switch>
         </section>
       </Fragment>
