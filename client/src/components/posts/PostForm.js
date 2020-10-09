@@ -6,6 +6,10 @@ import { addPost } from '../../reduxstuff/actions/post';
 const PostForm = ({ addPost }) => {
   const [text, setText] = useState('');
 
+  const setTextHandler = (e) => {
+    setText(e.target.value);
+  }
+
   return (
     <div className="post-form">
       <div className="bg-primary p">
@@ -25,7 +29,7 @@ const PostForm = ({ addPost }) => {
           rows="5"
           placeholder="Create a post"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => setTextHandler(e)}
           required
         />
         <input type="submit" className="btn btn-dark my-1" value="Submit" />

@@ -27,6 +27,10 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     let { name, email, password } = req.body;
+
+    // Clear the spce between user firstname and lastname
+    name = name.trim().split(' ').join('');
+
     try {
       // let user = await User.findOne({ email: email })
       //                  ||
@@ -46,12 +50,16 @@ router.post(
         d: 'mm', // if user doesnt have a gravator then mm will handle
       });
 
+      // Create tag
+      let tag = `@${name}`
+
       // Creating user instance
       user = new User({
         name,
         email,
         password,
         avatar,
+        tag
       });
 
       // Encrypt password

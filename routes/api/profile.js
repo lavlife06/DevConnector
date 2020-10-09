@@ -87,10 +87,6 @@ router.post(
     if (instagram) profileFields.social.instagram = instagram;
 
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
 
       // Using upsert option (creates new doc if no match is found):
       let profile = await Profile.findOneAndUpdate(
