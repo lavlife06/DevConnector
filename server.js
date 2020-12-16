@@ -1,8 +1,9 @@
-const connectDB = require('./config/db');
-const express = require('express');
+const connectDB = require("./config/db");
+const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
-const cors = require('cors');
+const cors = require("cors");
+const path = require("path");
 
 // implementing cors
 app.use(cors());
@@ -22,15 +23,21 @@ connectDB();
 // Init bodyParser middleware
 app.use(express.json({ extended: false })); // This is equal to use(bodyParser.json())
 
-app.get('/', (req, res) => {
-  res.send('hello');
-});
-
 // Define routes
-app.use('/api/login', require('./routes/api/login'));
-app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/signup', require('./routes/api/signup'));
-app.use('/api/posts', require('./routes/api/posts'));
+app.use("/api/login", require("./routes/api/login"));
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/signup", require("./routes/api/signup"));
+app.use("/api/posts", require("./routes/api/posts"));
+
+// Serve static assets in production
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Its running on ${PORT} dont worry`);
