@@ -17,9 +17,7 @@
 <!-- [![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&color=blue)][linkedin-url] -->
 
   <h1 align="center">DevConnector</h1>
-<img src="https://img.shields.io/badge/Contributions-2-yellow?color=yellow&style=plastic">
-<img src="https://img.shields.io/github/forks/lavlife06/DevConnector?color=blue&style=plastic">
-<img src="https://img.shields.io/github/stars/lavlife06/DevConnector?color=green&style=plastic">
+<img src="https://img.shields.io/badge/Contributions-2-yellow?color=yellow&style=plastic"> <img src="https://img.shields.io/github/forks/lavlife06/DevConnector?color=blue&style=plastic"><img src="https://img.shields.io/github/stars/lavlife06/DevConnector?color=green&style=plastic">
 
 <img src="https://img.shields.io/badge/js-91.1%25-orange?color=orange&style=plastic"><img src="https://img.shields.io/badge/react-%5E16.13.1-brightgreen?color=brightgreen&style=plastic">
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&color=blue)][linkedin-url]
