@@ -35,7 +35,7 @@
 
 </p>
 
-<h2 align="center"><a  href="https://solitairevue.firebaseapp.com">Live Demo</a></h2>
+<h2 align="center"><a  href="https://cryptic-fortress-60566.herokuapp.com/">Live Demo</a></h2>
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
