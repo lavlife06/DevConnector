@@ -26,13 +26,16 @@
 
 <img src="https://img.shields.io/badge/js-91.1%25-orange?color=orange&style=plastic">
 
-<img src="https://img.shields.io/badge/react-%5E16.13.1-brightgreen?color=brightgreen&style=plastic">
+<img src="https://img.shields.io/badge/react-%5E16.13.1-brightgreen?color=brightgreen&style=plastic"> 
+<a href='https://www.linkedin.com/in/lav-senghani-4764a0167/'> <img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&color=blue"></a>
+<a href='https://twitter.com/LavSenghani'><img src="https://img.shields.io/badge/-twitter-black.svg?style=plastic&logo=twitter&color=black"></a>
 
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&color=blue)][linkedin-url]
-[![Twitter](https://img.shields.io/badge/-twitter-black.svg?style=plastic&logo=twitter&color=black)][twitter-url]
+<!-- [![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=linkedin&color=blue)][linkedin-url] -->
+<!-- [![Twitter](https://img.shields.io/badge/-twitter-black.svg?style=plastic&logo=twitter&color=black)][twitter-url] -->
+
+</p>
 
 <h2 align="center"><a  href="https://solitairevue.firebaseapp.com">Live Demo</a></h2>
-</p>
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
