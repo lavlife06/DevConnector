@@ -35,7 +35,7 @@
 
 </p>
 
-<h2 align="center"><a  href="https://cryptic-fortress-60566.herokuapp.com/">Live Demo</a></h2>
+<!-- <h2 align="center"><a  href="https://cryptic-fortress-60566.herokuapp.com/">Live Demo</a></h2> -->
 
 ## Login Details for Testing
 email: test@gmail.com <br/>
