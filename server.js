@@ -1,7 +1,7 @@
 const connectDB = require("./config/db");
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 const cors = require("cors");
 const path = require("path");
 
@@ -31,14 +31,14 @@ app.use("/api/posts", require("./routes/api/posts"));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  app.use(express.static("client/build"));
+    // Set static folder
+    app.use(express.static("client/build"));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
 }
 
 app.listen(PORT, () => {
-  console.log(`Its running on ${PORT} dont worry`);
+    console.log(`Its running on ${PORT} dont worry`);
 });

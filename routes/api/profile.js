@@ -67,7 +67,7 @@ router.post(
         if (bio) profileFields.bio = bio;
         if (status) profileFields.status = status;
         if (githubusername) profileFields.githubusername = githubusername;
-        if (skills) {
+        if (skills & (skills.length > 0)) {
             let arr = skills.split(",").map((str) => {
                 return str.trim();
             });
